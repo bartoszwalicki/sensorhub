@@ -35,7 +35,6 @@
    * Options that are only used when the PNPM package manager is selected
    */
   "pnpmOptions": {
-
     /**
      * If true, then Rush will add the "--strict-peer-dependencies" option when invoking PNPM.
      * This causes "rush install" to fail if there are unsatisfied peer dependencies, which is
@@ -47,8 +46,6 @@
      * It is strongly recommended to set strictPeerDependencies=true.
      */
     // "strictPeerDependencies": true,
-
-
     /**
      * Configures the strategy used to select versions during installation.
      *
@@ -72,19 +69,19 @@
    * Specify a SemVer range to ensure developers use a Node.js version that is appropriate
    * for your repo.
    */
-  "nodeSupportedVersionRange": ">=10.13.0 <11.0.0",
+  "nodeSupportedVersionRange": ">=10.13.0 <=12.14.1",
 
   /**
-  * Odd-numbered major versions of Node.js are experimental.  Even-numbered releases
-  * spend six months in a stabilization period before the first Long Term Support (LTS) version.
-  * For example, 8.9.0 was the first LTS version of Node.js 8.  Pre-LTS versions are not recommended
-  * for production usage because they frequently have bugs.  They may cause Rush itself
-  * to malfunction.
-  *
-  * Rush normally prints a warning if it detects a pre-LTS Node.js version.  If you are testing
-  * pre-LTS versions in preparation for supporting the first LTS version, you can use this setting
-  * to disable Rush's warning.
-  */
+   * Odd-numbered major versions of Node.js are experimental.  Even-numbered releases
+   * spend six months in a stabilization period before the first Long Term Support (LTS) version.
+   * For example, 8.9.0 was the first LTS version of Node.js 8.  Pre-LTS versions are not recommended
+   * for production usage because they frequently have bugs.  They may cause Rush itself
+   * to malfunction.
+   *
+   * Rush normally prints a warning if it detects a pre-LTS Node.js version.  If you are testing
+   * pre-LTS versions in preparation for supporting the first LTS version, you can use this setting
+   * to disable Rush's warning.
+   */
   // "suppressNodeLtsWarning": false,
 
   /**
@@ -98,7 +95,7 @@
    * version. In those cases, you will need to add an entry to the "allowedAlternativeVersions"
    * section of the common-versions.json.
    */
-   // "ensureConsistentVersions": true,
+  // "ensureConsistentVersions": true,
 
   /**
    * Large monorepos can become intimidating for newcomers if project folder paths don't follow
@@ -152,7 +149,7 @@
   //     "tools",      // non-shipping projects that are part of the developer toolchain
   //     "prototypes"  // experiments that should mostly be ignored by the review process
   //   ],
-  // 
+  //
   //   /**
   //    * A list of NPM package scopes that will be excluded from review.
   //    * We recommend to exclude TypeScript typings (the "@types" scope), because
@@ -182,14 +179,12 @@
     //   "[^@]+@users\\.noreply\\.github\\.com",
     //   "travis@example\\.org"
     // ],
-
     /**
      * When Rush reports that the address is malformed, the notice can include an example
      * of a recommended email.  Make sure it conforms to one of the allowedEmailRegExps
      * expressions.
      */
     // "sampleEmail": "mrexample@users.noreply.github.com",
-
     /**
      * The commit message to use when committing changes during 'rush publish'.
      *
@@ -245,122 +240,13 @@
      */
     "postRushBuild": []
   },
-
-  /**
-   * Installation variants allow you to maintain a parallel set of configuration files that can be
-   * used to build the entire monorepo with an alternate set of dependencies.  For example, suppose
-   * you upgrade all your projects to use a new release of an important framework, but during a transition period
-   * you intend to maintain compability with the old release.  In this situation, you probably want your
-   * CI validation to build the entire repo twice: once with the old release, and once with the new release.
-   *
-   * Rush "installation variants" correspond to sets of config files located under this folder:
-   *
-   *   common/config/rush/variants/<variant_name>
-   *
-   * The variant folder can contain an alternate common-versions.json file.  Its "preferredVersions" field can be used
-   * to select older versions of dependencies (within a loose SemVer range specified in your package.json files).
-   * To install a variant, run "rush install --variant <variant_name>".
-   *
-   * For more details and instructions, see this article:  https://rushjs.io/pages/advanced/installation_variants/
-   */
-  "variants": [
-    // {
-    //   /**
-    //    * The folder name for this variant.
-    //    */
-    //   "variantName": "old-sdk",
-    // 
-    //   /**
-    //    * An informative description
-    //    */
-    //   "description": "Build this repo using the previous release of the SDK"
-    // }
-  ],
-
-  /**
-   * Rush can collect anonymous telemetry about everyday developer activity such as
-   * success/failure of installs, builds, and other operations.  You can use this to identify
-   * problems with your toolchain or Rush itself.  THIS TELEMETRY IS NOT SHARED WITH MICROSOFT.
-   * It is written into JSON files in the common/temp folder.  It's up to you to write scripts
-   * that read these JSON files and do something with them.  These scripts are typically registered
-   * in the "eventHooks" section.
-   */
-  // "telemetryEnabled": false,
-
-  /**
-   * Allows creation of hotfix changes. This feature is experimental so it is disabled by default.
-   * If this is set, 'rush change' only allows a 'hotfix' change type to be specified. This change type
-   * will be used when publishing subsequent changes from the monorepo.
-   */
-  // "hotfixChangeEnabled": false,
-
-  /**
-   * (Required) This is the inventory of projects to be managed by Rush.
-   *
-   * Rush does not automatically scan for projects using wildcards, for a few reasons:
-   * 1. Depth-first scans are expensive, particularly when tools need to repeatedly collect the list.
-   * 2. On a caching CI machine, scans can accidentally pick up files left behind from a previous build.
-   * 3. It's useful to have a centralized inventory of all projects and their important metadata.
-   */
+  "variants": [],
+  "telemetryEnabled": false,
+  "hotfixChangeEnabled": false,
   "projects": [
-    // {
-    //   /**
-    //    * The NPM package name of the project (must match package.json)
-    //    */
-    //   "packageName": "my-app",
-    // 
-    //   /**
-    //    * The path to the project folder, relative to the rush.json config file.
-    //    */
-    //   "projectFolder": "apps/my-app",
-    // 
-    //   /**
-    //    * An optional category for usage in the "browser-approved-packages.json"
-    //    * and "nonbrowser-approved-packages.json" files.  The value must be one of the
-    //    * strings from the "reviewCategories" defined above.
-    //    */
-    //   "reviewCategory": "production",
-    // 
-    //   /**
-    //    * A list of local projects that appear as devDependencies for this project, but cannot be
-    //    * locally linked because it would create a cyclic dependency; instead, the last published
-    //    * version will be installed in the Common folder.
-    //    */
-    //   "cyclicDependencyProjects": [
-    //     // "my-toolchain"
-    //   ],
-    // 
-    //   /**
-    //    * If true, then this project will be ignored by the "rush check" command.
-    //    * The default value is false.
-    //    */
-    //   // "skipRushCheck": false,
-    // 
-    //   /**
-    //    * A flag indicating that changes to this project will be published to npm, which affects
-    //    * the Rush change and publish workflows. The default value is false.
-    //    * NOTE: "versionPolicyName" and "shouldPublish" are alternatives; you cannot specify them both.
-    //    */
-    //   // "shouldPublish": false,
-    // 
-    //   /**
-    //    * An optional version policy associated with the project.  Version policies are defined
-    //    * in "version-policies.json" file.  See the "rush publish" documentation for more info.
-    //    * NOTE: "versionPolicyName" and "shouldPublish" are alternatives; you cannot specify them both.
-    //    */
-    //   // "versionPolicyName": ""
-    // },
-    // 
-    // {
-    //   "packageName": "my-controls",
-    //   "projectFolder": "libraries/my-controls",
-    //   "reviewCategory": "production"
-    // },
-    // 
-    // {
-    //   "packageName": "my-toolchain",
-    //   "projectFolder": "tools/my-toolchain",
-    //   "reviewCategory": "tools"
-    // }
+    {
+      "packageName": "server",
+      "projectFolder": "server"
+    }
   ]
 }

@@ -1,16 +1,16 @@
-import express from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
-import { Routes } from "./configuration/routes";
+import { RoutesConfiguration } from "./configuration/routes";
 
 class App {
-  public app: express.Application;
-  private routesBarrell: Routes;
+  public app: any;
+  private routesConfiguration: RoutesConfiguration;
 
   constructor() {
     this.app = express();
     this.configureExpress();
-    this.routesBarrell = new Routes();
-    this.routesBarrell.routes(this.app);
+    this.routesConfiguration = new RoutesConfiguration();
+    this.routesConfiguration.initRoutes(this.app);
   }
 
   private configureExpress(): void {

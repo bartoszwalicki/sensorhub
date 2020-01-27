@@ -12,7 +12,19 @@
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "serve-debug": "nodemon --inspect dist/server.js"
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "elo": "nodemon"
+  },
+  "nodemonConfig": {
+    "signal": "SIGHUP",
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "src/**/*.spec.ts"
+    ],
+    "exec": "ts-node ./src/server.ts"
   },
   "author": "",
   "license": "ISC",

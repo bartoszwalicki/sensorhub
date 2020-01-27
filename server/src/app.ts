@@ -1,5 +1,5 @@
-import express, { Application } from "express";
-import bodyParser from "body-parser";
+import * as express from "express";
+import * as bodyParser from "body-parser";
 import { RoutesConfiguration } from "./configuration/routes";
 
 class App {

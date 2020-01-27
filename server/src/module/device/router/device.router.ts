@@ -1,8 +1,8 @@
-import express from "express";
+import * as express from "express";
 import { DeviceController } from "../controller/device.controller";
 
 export class DeviceRouter {
-  public router: any;
+  public router: express.Router;
 
   private deviceController: DeviceController;
 

@@ -1,5 +1,5 @@
-import { DeviceController } from "../controllers/device/device.controller";
-import { DeviceRouter } from "../routes/device.router";
+import { DeviceController } from "../module/device/controller/device.controller";
+import { DeviceRouter } from "../module/device/router/device.router";
 
 export class Routes {
   public deviceController: DeviceController;

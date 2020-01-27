@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { database } from "../../configuration/database";
+import { database } from "../../..//configuration/database";
 
 export class DeviceModel extends Model {
   public id!: number;

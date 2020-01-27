@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { DeviceModel } from "../../models/device/device.model";
-import { DeviceDto } from "../../dto/device.dto";
+import { DeviceModel } from "../model/device.model";
+import { DeviceDto } from "../dto/device.dto";
 
 export class DeviceController {
   public index(req: Request, res: Response) {

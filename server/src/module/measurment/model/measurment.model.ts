@@ -1,4 +1,9 @@
-import { Model, DataTypes, Association } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  Association,
+  HasOneGetAssociationMixin
+} from "sequelize";
 
 import { database } from "../../..//configuration/database";
 
@@ -10,6 +15,12 @@ export class MeasurmentModel extends Model {
   public value!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public getDevice!: HasOneGetAssociationMixin<DeviceModel>;
+
+  public static associations: {
+    device: Association<MeasurmentModel, DeviceModel>;
+  };
 
   public static initialize(): void {
     this.init(

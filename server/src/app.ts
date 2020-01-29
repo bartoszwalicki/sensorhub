@@ -2,9 +2,9 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { RoutesConfiguration } from "./configuration/routes";
 
-import { initializeDeviceModel } from "./module/device/model/device.model-init";
 import { DeviceModel } from "./module/device/model/device.model";
 import { MeasurmentModel } from "./module/measurment/model/measurment.model";
+import { database } from "./configuration/database";
 
 class App {
   public app: express.Application;
@@ -15,8 +15,10 @@ class App {
     this.configureExpress();
     this.initializeModels();
     this.initializeAssiciations();
-    // this.routesConfiguration = new RoutesConfiguration();
-    // this.routesConfiguration.initRoutes(this.app);
+    this.routesConfiguration = new RoutesConfiguration();
+    this.routesConfiguration.initRoutes(this.app);
+
+    database.sync();
   }
 
   private configureExpress(): void {
@@ -25,9 +27,8 @@ class App {
   }
 
   private initializeModels(): void {
-    const forcedInit = true;
-    DeviceModel.initialize(forcedInit);
-    MeasurmentModel.initialize(forcedInit);
+    DeviceModel.initialize();
+    MeasurmentModel.initialize();
   }
 
   private initializeAssiciations(): void {

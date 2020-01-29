@@ -11,18 +11,21 @@ export class MeasurmentModel extends Model {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public static initialize(forcedInit: boolean = false): void {
+  public static initialize(): void {
     this.init(
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: new DataTypes.INTEGER(),
           autoIncrement: true,
           primaryKey: true
         },
         value: {
           type: new DataTypes.REAL(),
-          allowNull: false,
-          unique: true
+          allowNull: false
+        },
+        deviceId: {
+          type: new DataTypes.INTEGER(),
+          allowNull: false
         }
       },
       {
@@ -30,13 +33,13 @@ export class MeasurmentModel extends Model {
         sequelize: database
       }
     );
-
-    MeasurmentModel.sync({ force: forcedInit }).then(() =>
-      console.log("Measurment table created.")
-    );
   }
 
   public static associate(): void {
-    this.belongsTo(DeviceModel);
+    this.belongsTo(DeviceModel, {
+      foreignKey: "deviceId",
+      targetKey: "id",
+      as: "device"
+    });
   }
 }

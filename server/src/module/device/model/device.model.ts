@@ -1,4 +1,9 @@
-import { Model } from "sequelize";
+import {
+  Model,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  Association
+} from "sequelize";
 
 import { DataTypes } from "sequelize";
 
@@ -12,7 +17,14 @@ export class DeviceModel extends Model {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public static initialize(forcedInit: boolean = false): void {
+  public getMeasurments!: HasManyGetAssociationsMixin<MeasurmentModel>;
+  public addMeasurment!: HasManyHasAssociationMixin<MeasurmentModel, number>;
+
+  public static associations: {
+    measurments: Association<DeviceModel, MeasurmentModel>;
+  };
+
+  public static initialize(): void {
     this.init(
       {
         id: {
@@ -34,13 +46,13 @@ export class DeviceModel extends Model {
         sequelize: database
       }
     );
-
-    DeviceModel.sync({ force: forcedInit }).then(() =>
-      console.log("Devices table created.")
-    );
   }
 
   public static associate(): void {
-    this.hasMany(MeasurmentModel);
+    this.hasMany(MeasurmentModel, {
+      sourceKey: "id",
+      foreignKey: "deviceId",
+      as: "measurments"
+    });
   }
 }

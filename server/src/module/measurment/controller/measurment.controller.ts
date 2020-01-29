@@ -3,11 +3,11 @@ import { MeasurmentModel } from "../model/measurment.model";
 import { MeasurmentDto } from "../dto/measurment.dto";
 import { DeviceModel } from "../../device/model/device.model";
 
-export class DeviceController {
+export class MeasurmentController {
   public index(req: any, res: any) {
-    MeasurmentModel.findAll<MeasurmentModel>({})
-      .then((devices: Array<MeasurmentModel>) => {
-        res.json(devices);
+    MeasurmentModel.findAll<MeasurmentModel>()
+      .then((measurments: Array<MeasurmentModel>) => {
+        res.json(measurments);
       })
       .catch((err: Error) => res.status(500).json(err));
   }
@@ -18,11 +18,16 @@ export class DeviceController {
     DeviceModel.findOne({
       attributes: ["id"],
       where: { deviceHardwareId: params.deviceId }
-    });
-
-    MeasurmentModel.create<MeasurmentModel>(params)
-      .then((measurment: MeasurmentModel) => res.status(201).json(measurment))
-      .catch((error: Error) => res.status(500).json(error));
+    })
+      .then(device => {
+        return MeasurmentModel.create({
+          value: params.value,
+          deviceId: device.id
+        });
+      })
+      .then(measurment => {
+        res.status(200).json(measurment);
+      });
   }
 
   public delete(req: any, res: any) {

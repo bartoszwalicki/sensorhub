@@ -1,58 +1,26 @@
 import {
   Model,
-  HasManyGetAssociationsMixin,
-  HasManyHasAssociationMixin,
-  Association
-} from "sequelize";
+  Column,
+  Table,
+  HasMany,
+  Unique,
+  AllowNull
+} from "sequelize-typescript";
 
-import { DataTypes } from "sequelize";
+import { Measurment } from "../../measurment/model/measurment.model";
 
-import { database } from "../../../configuration/database";
-import { MeasurmentModel } from "../../measurment/model/measurment.model";
-
-export class DeviceModel extends Model {
-  public id!: number;
+@Table({
+  timestamps: true
+})
+export class Device extends Model<Device> {
+  @Column
   public name!: string;
+
+  @Unique
+  @AllowNull(false)
+  @Column
   public deviceHardwareId!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
 
-  public getMeasurments!: HasManyGetAssociationsMixin<MeasurmentModel>;
-  public addMeasurment!: HasManyHasAssociationMixin<MeasurmentModel, number>;
-
-  public static associations: {
-    measurments: Association<DeviceModel, MeasurmentModel>;
-  };
-
-  public static initialize(): void {
-    this.init(
-      {
-        id: {
-          type: DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true
-        },
-        name: {
-          type: new DataTypes.STRING(60)
-        },
-        deviceHardwareId: {
-          type: new DataTypes.STRING(12),
-          allowNull: false,
-          unique: true
-        }
-      },
-      {
-        tableName: "devices",
-        sequelize: database
-      }
-    );
-  }
-
-  public static associate(): void {
-    this.hasMany(MeasurmentModel, {
-      sourceKey: "id",
-      foreignKey: "deviceId",
-      as: "measurments"
-    });
-  }
+  @HasMany(() => Measurment)
+  measurments: Array<Measurment>;
 }

@@ -1,11 +1,13 @@
-import { DeviceModel } from "../model/device.model";
 import { DeviceDto } from "../dto/device.dto";
+
 import { DestroyOptions } from "sequelize/types";
+
+import { Device } from "../model/device.model";
 
 export class DeviceController {
   public index(req: any, res: any) {
-    DeviceModel.findAll<DeviceModel>({})
-      .then((devices: Array<DeviceModel>) => {
+    Device.findAll<Device>({})
+      .then((devices: Array<Device>) => {
         res.json(devices);
       })
       .catch((err: Error) => res.status(500).json(err));
@@ -14,8 +16,8 @@ export class DeviceController {
   public create(req: any, res: any) {
     const params: DeviceDto = req.body;
 
-    DeviceModel.create<DeviceModel>(params)
-      .then((device: DeviceModel) => res.status(201).json(device))
+    Device.create<Device>(params)
+      .then((device: Device) => res.status(201).json(device))
       .catch((error: Error) => res.status(500).json(error));
   }
 
@@ -26,7 +28,7 @@ export class DeviceController {
       where: { id }
     };
 
-    DeviceModel.destroy(destroyOptions)
+    Device.destroy(destroyOptions)
       .then(() => res.sendStatus(204))
       .catch((error: Error) => res.status(500).json(error));
   }

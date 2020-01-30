@@ -17,15 +17,19 @@ class App {
     this.routesConfiguration = new RoutesConfiguration();
     this.routesConfiguration.initRoutes(this.app);
 
-    database.sync({ force: true }).then(() => {
-      this.seeder = new Seeder();
-      this.seeder.seed();
+    database.sync({ force: false }).then(() => {
+      // this.seedDatabase();
     });
   }
 
   private configureExpress(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+  }
+
+  private seedDatabase(): void {
+    this.seeder = new Seeder();
+    this.seeder.seed();
   }
 }
 

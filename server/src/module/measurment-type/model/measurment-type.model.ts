@@ -1,9 +1,16 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  AllowNull
+} from "sequelize-typescript";
 
 @Table({
   timestamps: true
 })
 export class MeasurmentType extends Model<MeasurmentType> {
+  @AllowNull(false)
   @Column({ type: DataType.STRING(50) })
   type!: string;
 

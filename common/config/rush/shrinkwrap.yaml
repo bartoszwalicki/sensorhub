@@ -7,6 +7,7 @@ dependencies:
   '@types/validator': 12.0.1
   body-parser: 1.19.0
   express: 4.17.1
+  faker: 4.1.0
   nodemon: 2.0.2
   pg: 7.17.1
   reflect-metadata: 0.1.13
@@ -517,6 +518,10 @@ packages:
       node: '>= 0.10.0'
     resolution:
       integrity: sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
+  /faker/4.1.0:
+    dev: false
+    resolution:
+      integrity: sha1-HkW7vsxndLPBlfrSg1EJxtdIzD8=
   /fill-range/7.0.1:
     dependencies:
       to-regex-range: 5.0.1
@@ -1855,6 +1860,7 @@ packages:
       body-parser: 1.19.0
       concurrently: 5.0.2
       express: 4.17.1
+      faker: 4.1.0
       nodemon: 2.0.2
       pg: 7.17.1
       reflect-metadata: 0.1.13
@@ -1865,7 +1871,7 @@ packages:
     dev: false
     name: '@rush-temp/server'
     resolution:
-      integrity: sha512-1M9JmM22ljglhZbgmEcUue9pmG6oKMs2TEKENcnS2i8QWVL96PAXAW0xM0jbDV7XcNpWObicTbnicoDAPev/8g==
+      integrity: sha512-ebLgUp2r3S9M2RyW5pQYeSo7mfCSS+Hd6mk5Ga6h8Yp4A2o/WKWw6z9tRPEZo1y3MSRuW4nG+r/ZkCEU0quMRg==
       tarball: 'file:projects/server.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
@@ -1880,6 +1886,7 @@ specifiers:
   '@types/validator': ~12.0.1
   body-parser: ~1.19.0
   express: ~4.17.1
+  faker: ~4.1.0
   nodemon: ~2.0.2
   pg: ~7.17.1
   reflect-metadata: ~0.1.13

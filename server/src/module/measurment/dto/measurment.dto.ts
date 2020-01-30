@@ -1,5 +1,5 @@
 export interface MeasurmentDto {
   deviceId: string;
-  measurment: number;
+  measurmentTypeId: number;
   value: number;
 }

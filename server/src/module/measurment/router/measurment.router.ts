@@ -11,6 +11,7 @@ export class MeasurmentRouter {
     this.router = express.Router();
 
     this.router.get("/", this.measurmentController.index);
+    this.router.get("/:id", this.measurmentController.indexByDeviceId);
     this.router.post("/", this.measurmentController.create);
   }
 }

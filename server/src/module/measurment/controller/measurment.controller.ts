@@ -14,6 +14,22 @@ export class MeasurmentController {
       .catch((err: Error) => res.status(500).json(err));
   }
 
+  public indexByDeviceId(req: any, res: any) {
+    const deviceId = req.params.id;
+
+    if (!deviceId) {
+      res.status(404).send("Wrong device id.");
+    }
+
+    Measurment.findAll({
+      where: {
+        deviceId: deviceId
+      }
+    }).then(measurments => {
+      res.status(200).json(measurments);
+    });
+  }
+
   public create(req: any, res: any) {
     const params: MeasurmentDto = req.body;
 

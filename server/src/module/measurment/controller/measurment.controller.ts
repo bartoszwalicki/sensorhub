@@ -15,7 +15,7 @@ export class MeasurmentController {
   }
 
   public indexByDeviceId(req: any, res: any) {
-    const deviceId = req.params.id;
+    const deviceId = req.params.deviceId;
 
     if (!deviceId) {
       res.status(404).send("Wrong device id.");

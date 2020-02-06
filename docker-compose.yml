@@ -20,6 +20,15 @@ services:
       PGADMIN_DEFAULT_EMAIL: db@db.com
       PGADMIN_DEFAULT_PASSWORD: xxx
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
       - ./.pgadmin-data:/root/.pgadmin
+
+  backend:
+    image: backend-express
+    build: ./server
+    depends_on: 
+      - db
+    ports: 
+      - "3000:3000"
+

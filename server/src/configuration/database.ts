@@ -4,7 +4,7 @@ import { Measurment } from "../module/measurment/model/measurment.model";
 import { MeasurmentType } from "../module/measurment-type/model/measurment-type.model";
 
 export const database = new Sequelize("sensorhub", "sensorhub", "shpass", {
-  host: "localhost",
+  host: "db",
   dialect: "postgres",
   pool: {
     max: 5,

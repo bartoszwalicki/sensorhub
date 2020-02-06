@@ -4,28 +4,24 @@ import { MeasurmentDto } from "../dto/measurment.dto";
 
 import { Measurment } from "../model/measurment.model";
 import { Device } from "../../device/model/device.model";
+import { MeasurmentService } from "../service/measurment.service";
 
 export class MeasurmentController {
   public index(req: any, res: any) {
-    Measurment.findAll<Measurment>()
-      .then((measurments: Array<Measurment>) => {
-        res.json(measurments);
+    const page = req.query.page ? Number.parseInt(req.params.page) : 0;
+
+    MeasurmentService.findAll(page)
+      .then(measurments => {
+        res.status(200).json(measurments);
       })
       .catch((err: Error) => res.status(500).json(err));
   }
 
   public indexByDeviceId(req: any, res: any) {
     const deviceId = req.params.deviceId;
+    const page = req.query.page ? Number.parseInt(req.params.page) : 0;
 
-    if (!deviceId) {
-      res.status(404).send("Wrong device id.");
-    }
-
-    Measurment.findAll({
-      where: {
-        deviceId: deviceId
-      }
-    }).then(measurments => {
+    MeasurmentService.findAll(page, deviceId).then(measurments => {
       res.status(200).json(measurments);
     });
   }

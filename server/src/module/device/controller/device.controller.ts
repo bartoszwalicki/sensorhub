@@ -1,3 +1,5 @@
+import * as express from "express";
+
 import { DeviceDto } from "../dto/device.dto";
 
 import { DestroyOptions } from "sequelize/types";
@@ -5,7 +7,7 @@ import { DestroyOptions } from "sequelize/types";
 import { Device } from "../model/device.model";
 
 export class DeviceController {
-  public index(req: any, res: any) {
+  public index(req: express.Request, res: express.Response) {
     Device.findAll<Device>({})
       .then((devices: Array<Device>) => {
         res.json(devices);
@@ -13,7 +15,7 @@ export class DeviceController {
       .catch((err: Error) => res.status(500).json(err));
   }
 
-  public create(req: any, res: any) {
+  public create(req: express.Request, res: express.Response) {
     const params: DeviceDto = req.body;
 
     Device.create<Device>(params)
@@ -21,7 +23,7 @@ export class DeviceController {
       .catch((error: Error) => res.status(500).json(error));
   }
 
-  public delete(req: any, res: any) {
+  public delete(req: express.Request, res: express.Response) {
     const id: number = Number.parseInt(req.params.id, 10);
 
     const destroyOptions: DestroyOptions = {

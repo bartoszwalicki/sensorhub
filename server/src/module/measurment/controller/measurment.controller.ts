@@ -1,3 +1,5 @@
+import * as express from "express";
+
 import { DestroyOptions } from "sequelize/types";
 
 import { MeasurmentDto } from "../dto/measurment.dto";
@@ -7,7 +9,7 @@ import { Device } from "../../device/model/device.model";
 import { MeasurmentService } from "../service/measurment.service";
 
 export class MeasurmentController {
-  public index(req: any, res: any) {
+  public index(req: express.Request, res: express.Response) {
     const page = req.query.page ? Number.parseInt(req.params.page) : 0;
 
     MeasurmentService.findAll(page)
@@ -17,16 +19,16 @@ export class MeasurmentController {
       .catch((err: Error) => res.status(500).json(err));
   }
 
-  public indexByDeviceId(req: any, res: any) {
+  public indexByDeviceId(req: express.Request, res: express.Response) {
     const deviceId = req.params.deviceId;
     const page = req.query.page ? Number.parseInt(req.params.page) : 0;
 
-    MeasurmentService.findAll(page, deviceId).then(measurments => {
+    MeasurmentService.findAll(page, +deviceId).then(measurments => {
       res.status(200).json(measurments);
     });
   }
 
-  public create(req: any, res: any) {
+  public create(req: express.Request, res: express.Response) {
     const params: MeasurmentDto = req.body;
 
     Device.findOne({
@@ -44,7 +46,7 @@ export class MeasurmentController {
       });
   }
 
-  public delete(req: any, res: any) {
+  public delete(req: express.Request, res: express.Response) {
     const id: number = Number.parseInt(req.params.id, 10);
 
     const destroyOptions: DestroyOptions = {
